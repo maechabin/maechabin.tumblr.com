@@ -1,0 +1,177 @@
+doctype html
+html(lang="ja")
+
+	head
+		meta(charset="UTF-8")
+		<!--[if lt IE 9]>
+		script(src="//html5shiv.googlecode.com/svn/trunk/html5.js")
+		<![endif]-->
+		title {block:TagPage}{Tag} - {/block:TagPage}{block:IndexPage}写真ブログ Nikon[D5300/ニコワン]ユーザー {Title}{/block:IndexPage}{block:SearchPage}Search results for: {SearchQuery}{/block:SearchPage}{block:PostSummary}{PostSummary} - 写真ブログ {Title}{/block:PostSummary}
+		// #(block:Description)
+		meta(name="description", content="{MetaDescription}")
+		// ##
+
+		link(rel="shortcut icon", href="{Favicon}")
+		link(rel="apple-touch-icon", href="{PortraitURL-128}")
+		link(rel="alternate", type="application/rss+xml", href="{RSS}")
+
+		<!-- DEFAULT VARIABLES -->
+		meta(name="color:Post Type Text", content="#555555")
+		meta(name="color:Post Type Photo", content="#555555")
+		meta(name="color:Post Type Photoset", content="#555555")
+		meta(name="color:Post Type Quote", content="#555555")
+		meta(name="color:Post Type Link", content="#555555")
+		meta(name="color:Post Type Chat", content="#555555")
+		meta(name="color:Post Type Video", content="#555555")
+		meta(name="color:Post Type Audio", content="#555555")
+		meta(name="image:Header", content="")
+		meta(name="if:Show About Widget", content="1")
+		meta(name="if:Show Stuff I Like Widget", content="1")
+		meta(name="if:Show Latest Tweets Widget", content="0")
+		meta(name="if:Show People I Follow Widget", content="1")
+		meta(name="text:Number of Tweets", content="3")
+		meta(name="text:Google Analytics ID", content="")
+		meta(name="text:Disqus Shortname", content="")
+
+		link(rel="stylesheet", href="//www.googledrive.com/host/0B3pVRDuEiV9fMS1PaHhZTEktSEk")
+		script.
+			(function() {
+				var url = location.href;
+				if (url.indexOf("site_search") !== -1) {
+					var content = $("#content");
+					content.attr("display-none");
+				}
+			})();
+
+		link(rel="stylesheet", href="bundle.css?__inline=true")
+		// #(block:IfGoogleAnalyticsID)
+		script.
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', '{text:Google Analytics ID}', 'tumblr.com');
+			ga('require', 'displayfeatures');
+			ga('send', 'pageview');
+		// ##
+		<!-- script(src="//j.wovn.io/0", data-wovnio="key=xTpTl")-->
+
+
+	body
+		div(id="wrapper")
+
+			<!-- Start nav -->
+			nav(class="menu")
+				div(class="menu-inner")
+
+					ul#pages
+						li
+							a(href="/")
+								i(class="fa fa-home") Home
+						li(class="/archive")
+							a(href="/archive")
+								i(class="fa fa-th") 写真一覧
+						li
+							a(href="/random")
+								i(class="fa fa-random") ランダム表示
+						// #(block:HasPages)
+						// #(block:Pages)
+						li
+							a(href="{URL}") !(Label)
+						// ##
+						// ##
+						// #(block:AskEnabled)
+						li(class="ask")
+							a(href="/ask", class="page")
+								i(class="fa fa-envelope-o") お問い合わせ
+						// ##
+						li(class="rss")
+							a(href="{RSS}")
+								i(class="fa fa-rss") RSS
+						li
+							a(href="//cloud.feedly.com/#subscription%2Ffeed%2Fhttp%3A%2F%2Fmaechabin.tumblr.com%2Frss" target="blank")
+								img(id="feedlyFollow" src="//s3.feedly.com/img/follows/feedly-follow-rectangle-flat-medium_2x.png", alt="follow us in feedly" height="30")
+
+					form(action="/search", method="get", id="search")
+						input(type="text", name="q", value="{SearchQuery}")
+						input(type="submit", value="タグ検索", class="search-button")
+
+			<!-- Start #main -->
+			div#main
+				div#container
+
+					<!-- Start #branding -->
+					header#branding
+						h1
+							// #(block:IfHeaderImage)
+							a(href="/")
+								img(src="{image:Header}", alt="{Title}")
+							// ##
+							// #(block:IfNotHeaderImage)
+							a(href="/") !(Title)
+							// ##
+					<!-- End #branding -->
+
+					script.
+						(function() {
+							var cx = '007733624434756162843:WMX1807294300';
+							var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true;
+							gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+								'//www.google.com/cse/cse.js?cx=' + cx;
+							var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s);
+						})();
+
+					<!-- Place this tag where you want the search box to render -->
+					<gcse:searchbox-only></gcse:searchbox-only>
+
+					article#content
+						// #(block:Posts)
+
+						div(id="post-{PostID}", class="post {block:Text}post-type-text{/block:Text}{block:Photo}post-type-photo{/block:Photo}{block:Photoset}post-type-photoset{/block:Photoset}{block:Quote}post-type-quote{/block:Quote}{block:Link}post-type-link{/block:Link}{block:Chat}post-type-chat{/block:Chat}{block:Video}post-type-video{/block:Video}{block:Audio}post-type-audio{/block:Audio}")
+
+							<!-- Start .post-meta -->
+							ul.post-meta
+								li.type
+									a(href="{Permalink}")
+										// #(block:Text)
+										Text
+										// ##
+										// #(block:Photo)
+										i(class="fa fa-picture-o") Photo
+										// ##
+										// #(block:Photoset)
+										i(class="fa fa-picture-o") Photoset
+										// ##
+										// #(block:Quote)
+										Quote
+										// ##
+										// #(block:Link)
+										link
+										// ##
+										// #(block:Chat)
+										Chat
+										// ##
+										// #(block:Video)
+										i(class="fa fa-video-camera") Video
+										// ##
+										// #(block:Audio)
+										Audio
+										// ##
+								<!-- .type -->
+
+								// #(block:Date)
+								li.date {Year}年{Month}{DayOfMonthWithZero}日
+								// ##
+								// #(block:IfDisqusShortname)
+								li.comments
+									a(href="{Permalink}#disqus_thread") 0 comments
+								// ##
+								// #(block:NoteCount)
+								li.note-count
+									a(href="{Permalink}#notes") {NoteCountWithLabel}
+								// ##
+
+							<!-- .post-meta -->
+
+
+							//##

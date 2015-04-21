@@ -1,3 +1,5 @@
 node_modules/
 origin.html
 .DS_Store
+.peak
+.peakconfig.yml
